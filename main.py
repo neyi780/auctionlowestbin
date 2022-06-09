@@ -2,7 +2,7 @@ import requests
 import json
 
 
-def main(item):
+def sort_bin(item):
     itemparts = item.split()
     capitemparts = [i.capitalize() for i in itemparts]
     item = " ".join(capitemparts)
@@ -17,13 +17,6 @@ def main(item):
                 if i["bin"]:
                     allitems.append(i)
 
-    allitems = sorted(allitems, key=lambda x: x[sortby])
+    allitems = sorted(allitems, key=lambda x: x["starting_bid"])
     allitems = json.dumps(allitems, indent=4)
     return allitems
-
-
-if __name__ == "__main__":
-    item = input("Item: ")
-    sortby = input("Sort by (starting_bid/end): ")
-    lowestbin = main(item)
-    print(lowestbin)
